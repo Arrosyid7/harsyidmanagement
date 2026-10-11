@@ -1,0 +1,2885 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harsyid Management – Digital Marketing Portfolio</title>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23B8962E'/></svg>">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Chewy&family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --cream: #bdfc83; /* Light Green */
+            --cream-dark: #a8ef6a;
+            --cream-deeper: #8cd850;
+            --green: #143425; /* Dark Green / Almost Black */
+            --green-mid: #1b4732;
+            --green-light: #29684a;
+            --green-pale: #ffffff;
+            --green-mist: rgba(255, 255, 255, 0.4);
+            --accent-gold: #ffffff;
+            --text-dark: #143425;
+            --text-mid: #1b4732;
+            --text-light: #29684a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(145deg, #ffffff 0%, var(--cream) 35%, var(--cream-dark) 100%);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* ── CURSOR ── */
+        body {
+            cursor: none;
+        }
+
+        .cursor {
+            width: 12px;
+            height: 12px;
+            background: var(--green);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease;
+            mix-blend-mode: multiply;
+        }
+
+        .cursor-ring {
+            width: 36px;
+            height: 36px;
+            border: 1.5px solid var(--green-mid);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0.6;
+        }
+
+        /* ── HAMBURGER ── */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background-color: var(--green);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 60px;
+            background: rgba(245, 240, 232, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(45, 80, 22, 0.08);
+            transition: padding 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 16px 60px;
+        }
+
+        .nav-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--green);
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 0px #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+        }
+
+        .nav-logo span {
+            color: var(--green);
+            font-style: normal;
+            font-weight: 800;
+            text-shadow: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-mid);
+            text-decoration: none;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.2s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 100%;
+            height: 1px;
+            background: var(--green);
+            transition: right 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--green);
+        }
+
+        .nav-links a:hover::after {
+            right: 0;
+        }
+
+        .nav-cta {
+            background: var(--green);
+            color: var(--cream) !important;
+            padding: 10px 22px;
+            border-radius: 2px;
+            font-weight: 500 !important;
+            letter-spacing: 0.8px !important;
+            transition: background 0.2s, transform 0.2s !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--green-mid) !important;
+            transform: translateY(-1px) !important;
+        }
+
+        .nav-cta::after {
+            display: none !important;
+        }
+
+        /* ── HERO ── */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 60px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            /* Empty since we put gradient on body, but we can add some subtle noise or shapes */
+        }
+
+        .checkerboard-divider {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='50'%3E%3Crect x='0' y='0' width='50' height='50' fill='%23ffffff'/%3E%3Crect x='50' y='0' width='50' height='50' fill='%23143425'/%3E%3Crect x='100' y='0' width='50' height='50' fill='%23bdfc83'/%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+            z-index: 10;
+        }
+
+        .hero-pattern {
+            display: none; /* Hide old pattern */
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 680px;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: var(--green-mid);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.2s forwards;
+        }
+
+        .hero-tag::before {
+            content: '';
+            width: 32px;
+            height: 1px;
+            background: var(--green-mid);
+        }
+
+        .hero-logo-img {
+            max-width: 100%;
+            height: auto;
+            max-height: 180px;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.4s forwards;
+            display: block;
+            /* Convert any image color to dark green (#143425 approx) using CSS filters */
+            filter: brightness(0) saturate(100%) invert(14%) sepia(35%) saturate(1450%) hue-rotate(100deg) brightness(90%) contrast(90%) drop-shadow(4px 4px 0px rgba(20, 52, 37, 0.2));
+        }
+
+        .hero-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 13px;
+            letter-spacing: 3px;
+            color: var(--text-mid);
+            text-transform: uppercase;
+            margin-bottom: 32px;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.5s forwards;
+        }
+
+        .hero-desc {
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--text-mid);
+            max-width: 480px;
+            margin-bottom: 48px;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.6s forwards;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.7s forwards;
+        }
+
+        .btn-primary {
+            background: var(--green);
+            color: var(--cream);
+            padding: 14px 32px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 0px;
+            border: 2px solid var(--green);
+            box-shadow: 4px 4px 0px var(--green);
+            transition: transform 0.1s, box-shadow 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background: var(--green);
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--green);
+        }
+
+        .btn-outline {
+            background: #ffffff;
+            border: 2px solid var(--green);
+            color: var(--green);
+            padding: 14px 32px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 0px;
+            box-shadow: 4px 4px 0px var(--green);
+            transition: transform 0.1s, box-shadow 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-outline:hover {
+            background: #ffffff;
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--green);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 60px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeUp 1s 1.2s forwards;
+        }
+
+        .hero-scroll::before {
+            content: '';
+            width: 1px;
+            height: 48px;
+            background: linear-gradient(to bottom, transparent, var(--text-light));
+        }
+
+        .hero-float {
+            position: absolute;
+            right: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            opacity: 0;
+            animation: fadeLeft 1s 0.8s forwards;
+            z-index: 2;
+        }
+
+        .stat-card {
+            background: white;
+            border: 2px solid var(--green);
+            padding: 20px 28px;
+            border-radius: 0px;
+            box-shadow: 4px 4px 0px var(--green);
+        }
+
+        .stat-num {
+            font-family: 'Outfit', sans-serif;
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--green);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-light);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        /* ── SECTIONS COMMON ── */
+        section {
+            padding: 100px 60px;
+        }
+
+        .section-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 3px;
+            color: var(--green-mid);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-tag::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--green-mid);
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(36px, 4vw, 56px);
+            font-weight: 800;
+            line-height: 1.1;
+            color: var(--green);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 0px var(--cream-dark);
+        }
+
+        .section-title em {
+            font-style: normal;
+            color: #ffffff;
+            text-shadow: 2px 2px 0px var(--green);
+            -webkit-text-stroke: 1px var(--green);
+        }
+
+        .section-sub {
+            font-size: 15px;
+            font-weight: 300;
+            color: var(--text-mid);
+            line-height: 1.8;
+            max-width: 520px;
+        }
+
+        /* ── SERVICES / ABOUT ── */
+        #about {
+            background: var(--green);
+            color: var(--cream);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            padding: 100px 60px;
+        }
+
+        #about .section-tag {
+            color: var(--green-pale);
+        }
+
+        #about .section-tag::before {
+            background: var(--green-pale);
+        }
+
+        #about .section-title {
+            color: var(--cream);
+        }
+
+        #about .section-title em {
+            color: var(--accent-gold);
+        }
+
+        #about .section-sub {
+            color: var(--green-pale);
+            max-width: 100%;
+        }
+
+        .about-skills {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .skill-bar-item label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--green-pale);
+            margin-bottom: 8px;
+        }
+
+        .skill-bar-track {
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .skill-bar-fill {
+            height: 100%;
+            background: var(--accent-gold);
+            border-radius: 2px;
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .about-right {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .service-pill {
+            background: #ffffff;
+            border: 2px solid var(--green);
+            padding: 20px 24px;
+            border-radius: 0px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            box-shadow: 4px 4px 0px var(--green);
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+
+        .service-pill:hover {
+            background: #ffffff;
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--green);
+        }
+
+        .pill-icon {
+            font-size: 22px;
+            width: 44px;
+            height: 44px;
+            background: var(--cream);
+            border: 2px solid var(--green);
+            border-radius: 0px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 2px 2px 0px var(--green);
+        }
+
+        .pill-text h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--green);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .pill-text p {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-mid);
+            line-height: 1.6;
+        }
+
+        /* ── PORTFOLIO ── */
+        #portfolio {
+            background: var(--cream-dark);
+        }
+
+        .portfolio-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 60px;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 8px 18px;
+            border: 2px solid var(--green);
+            border-radius: 0px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: var(--green);
+            cursor: pointer;
+            background: #ffffff;
+            transition: transform 0.1s, box-shadow 0.1s;
+            box-shadow: 2px 2px 0px var(--green);
+        }
+
+        .filter-tab.active,
+        .filter-tab:hover {
+            background: var(--green);
+            color: var(--cream);
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0px var(--green);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .port-card {
+            background: #ffffff;
+            border-radius: 0px;
+            overflow: hidden;
+            border: 2px solid var(--green);
+            transition: transform 0.1s, box-shadow 0.1s;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px var(--green);
+        }
+
+        .port-card:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--green);
+        }
+
+        .port-card.large {
+            grid-column: span 2;
+        }
+
+        .port-thumb {
+            aspect-ratio: 4/5;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 2px solid var(--green);
+        }
+
+        .port-thumb.video-thumb {
+            aspect-ratio: 9/16;
+        }
+
+        .port-thumb video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+        }
+
+        .port-card.large .port-thumb {
+            aspect-ratio: 16/8;
+        }
+
+        .port-thumb-bg {
+            position: absolute;
+            inset: 0;
+            transition: transform 0.5s ease;
+        }
+
+        .port-card:hover .port-thumb-bg {
+            transform: scale(1.05);
+        }
+
+        .port-thumb-overlay {
+            position: absolute;
+            inset: 0;
+            background: transparent;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .port-card:hover .port-thumb-overlay {
+            background: rgba(189, 252, 131, 0.9); /* green-pale strong overlay */
+        }
+
+        .port-overlay-icon {
+            font-size: 32px;
+            color: var(--green);
+            opacity: 0;
+            transition: opacity 0.2s, transform 0.2s;
+            transform: scale(0.7);
+        }
+
+        .port-card:hover .port-overlay-icon {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .port-type-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--green);
+            color: var(--cream);
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 0px;
+            border: 2px solid var(--green);
+        }
+
+        .port-info {
+            padding: 20px 24px;
+        }
+
+        .port-info h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--green);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .port-info p {
+            font-size: 12px;
+            color: var(--green);
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        .port-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .port-tag {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: var(--green-mid);
+            background: var(--green-mist);
+            padding: 3px 8px;
+            border-radius: 1px;
+        }
+
+        /* ── CAROUSEL ── */
+        .port-carousel-wrap {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .port-carousel-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-img {
+            min-width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .port-card:hover .carousel-img {
+            transform: scale(1.05);
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ffffff;
+            color: var(--green);
+            border: 2px solid var(--green);
+            width: 32px;
+            height: 32px;
+            border-radius: 0px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            opacity: 0;
+            transition: transform 0.1s, box-shadow 0.1s, opacity 0.2s;
+            box-shadow: 2px 2px 0px var(--green);
+        }
+
+        .port-card:hover .carousel-btn {
+            opacity: 1;
+        }
+
+        .carousel-btn:hover {
+            background: var(--green-mist);
+            transform: translateY(-50%) translate(1px, 1px);
+            box-shadow: 1px 1px 0px var(--green);
+        }
+
+        .carousel-btn.prev {
+            left: 8px;
+        }
+
+        .carousel-btn.next {
+            right: 8px;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 10;
+        }
+
+        .carousel-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .carousel-dot.active {
+            background: white;
+            transform: scale(1.3);
+        }
+
+        /* Placeholder visuals for portfolio items */
+        .thumb-design1 {
+            background: linear-gradient(135deg, #2D5016 0%, #5A8A35 50%, #B8962E 100%);
+        }
+
+        .thumb-design2 {
+            background: linear-gradient(135deg, #3D6B20 0%, #C8D9B8 100%);
+        }
+
+        .thumb-design3 {
+            background: linear-gradient(135deg, #1A2010 0%, #5A8A35 60%, #F5F0E8 100%);
+        }
+
+        .thumb-video1 {
+            background: linear-gradient(135deg, #0a1628 0%, #2D5016 50%, #5A8A35 100%);
+        }
+
+        .thumb-video2 {
+            background: linear-gradient(135deg, #2D5016 0%, #B8962E 100%);
+        }
+
+        .thumb-cert1 {
+            background: linear-gradient(135deg, #B8962E 0%, #F5F0E8 100%);
+        }
+
+        .thumb-cert2 {
+            background: linear-gradient(135deg, #E0D8C8 0%, #B8962E 60%, #2D5016 100%);
+        }
+
+        .thumb-cert3 {
+            background: linear-gradient(135deg, #5A8A35 0%, #B8962E 100%);
+        }
+
+        .thumb-icon {
+            font-size: 52px;
+            z-index: 1;
+            filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.2));
+        }
+
+        .thumb-pattern {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background-image: repeating-linear-gradient(45deg,
+                    rgba(255, 255, 255, 0.04) 0,
+                    rgba(255, 255, 255, 0.04) 1px,
+                    transparent 0,
+                    transparent 50%);
+            background-size: 20px 20px;
+        }
+
+        /* ── SOCIAL FOLLOW ── */
+        .social-follow-wrapper {
+            margin-top: 32px;
+            background: white;
+            border: 2px solid var(--green);
+            padding: 24px;
+            border-radius: 0px;
+            box-shadow: 4px 4px 0px var(--green);
+        }
+
+        .social-follow-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-mid);
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .social-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .social-cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .social-card-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 16px;
+            background: var(--cream);
+            border: 2px solid var(--green);
+            border-radius: 0px;
+            text-decoration: none;
+            transition: transform 0.1s, box-shadow 0.1s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 2px 2px 0px var(--green);
+        }
+
+        .social-card-link:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px var(--green);
+            background: var(--green-mist);
+        }
+
+        .social-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            color: var(--green);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-card-link:hover .social-card-icon {
+            transform: scale(1.1);
+            color: var(--accent-gold);
+        }
+
+        .social-card-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .social-card-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--green);
+            margin-bottom: 4px;
+        }
+
+        .social-card-action {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            transition: color 0.3s ease;
+        }
+
+        .social-card-link:hover .social-card-action {
+            color: var(--green-mid);
+        }
+
+        /* ── CERTIFICATE ── */
+        #certificates {
+            background: var(--cream);
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .cert-card {
+            border: 2px solid var(--green);
+            border-radius: 0px;
+            overflow: hidden;
+            background: white;
+            transition: transform 0.1s, box-shadow 0.1s;
+            box-shadow: 4px 4px 0px var(--green);
+        }
+
+        .cert-card:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--green);
+        }
+
+        .cert-header {
+            padding: 32px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cert-header::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--green-mist);
+        }
+
+        .cert-badge {
+            width: 64px;
+            height: 64px;
+            background: var(--green);
+            border-radius: 0px;
+            border: 2px solid var(--green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 16px;
+            z-index: 1;
+            box-shadow: 4px 4px 0px var(--cream);
+        }
+
+        .cert-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--green);
+            margin-bottom: 6px;
+            z-index: 1;
+        }
+
+        .cert-org {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-light);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            z-index: 1;
+        }
+
+        .cert-body {
+            padding: 16px 24px 24px;
+            border-top: 1px solid var(--cream-deeper);
+        }
+
+        .cert-year {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            color: var(--accent-gold);
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+
+        .cert-desc {
+            font-size: 12px;
+            font-weight: 300;
+            color: var(--text-mid);
+            line-height: 1.7;
+        }
+
+        /* ── PRICING ── */
+        #pricing {
+            background: var(--green);
+        }
+
+        #pricing .section-tag {
+            color: var(--green-pale);
+        }
+
+        #pricing .section-tag::before {
+            background: var(--green-pale);
+        }
+
+        #pricing .section-title {
+            color: var(--cream);
+        }
+
+        #pricing .section-title em {
+            color: var(--accent-gold);
+        }
+
+        #pricing .section-sub {
+            color: var(--green-pale);
+        }
+
+        .pricing-header {
+            margin-bottom: 64px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            align-items: start;
+        }
+
+        @media (max-width: 1200px) {
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .price-card {
+            background: #ffffff;
+            border: 2px solid var(--green);
+            border-radius: 0px;
+            overflow: hidden;
+            transition: transform 0.1s, box-shadow 0.1s;
+            position: relative;
+            box-shadow: 6px 6px 0px var(--green);
+        }
+
+        .price-card:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 4px 4px 0px var(--green);
+        }
+
+        .price-card.featured {
+            background: var(--cream);
+            border: 2px solid var(--green);
+            transform: scale(1.02);
+            box-shadow: 8px 8px 0px var(--green);
+        }
+
+        .price-card.featured:hover {
+            transform: scale(1.02) translate(2px, 2px);
+            box-shadow: 6px 6px 0px var(--green);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--green);
+            color: var(--cream);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 8px 16px;
+            border-bottom-left-radius: 0px;
+            border-left: 2px solid var(--green);
+            border-bottom: 2px solid var(--green);
+        }
+
+        .price-header {
+            padding: 32px 28px 24px;
+        }
+
+        .price-tier {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-mid);
+            margin-bottom: 12px;
+        }
+
+        .price-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--green);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .price-desc {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .price-amount-wrap {
+            padding: 20px 28px;
+            border-top: 2px dashed var(--green);
+        }
+
+        .price-amount {
+            font-family: 'Outfit', sans-serif;
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--green);
+            line-height: 1;
+        }
+
+        .price-period {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        .price-ai-note {
+            font-size: 10px;
+            font-style: italic;
+            color: var(--text-light);
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        .price-features {
+            padding: 20px 28px 28px;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .price-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-mid);
+            line-height: 1.5;
+        }
+
+        .price-features li::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: 800;
+            font-size: 13px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .price-cta-wrap {
+            padding: 0 28px 28px;
+        }
+
+        .price-btn {
+            display: block;
+            text-align: center;
+            padding: 14px 24px;
+            background: #ffffff;
+            border: 2px solid var(--green);
+            color: var(--green);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            border-radius: 0px;
+            transition: transform 0.1s, box-shadow 0.1s;
+            box-shadow: 4px 4px 0px var(--green);
+        }
+
+        .price-btn:hover {
+            background: var(--green-mist);
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--green);
+        }
+
+        .price-card.featured .price-btn {
+            background: var(--green);
+            color: var(--cream);
+            border-color: var(--green);
+        }
+
+        .price-card.featured .price-btn:hover {
+            background: var(--green-mid);
+            color: var(--cream);
+        }
+
+        /* S&K */
+        .sk-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 48px;
+        }
+
+        .sk-item {
+            background: #ffffff;
+            border: 2px solid var(--green);
+            border-radius: 0px;
+            padding: 20px 24px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            box-shadow: 4px 4px 0px var(--green);
+        }
+
+        .sk-icon {
+            font-size: 22px;
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            background: var(--cream);
+            border: 2px solid var(--green);
+            border-radius: 0px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sk-item h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 6px;
+        }
+
+        .sk-item p {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-mid);
+            line-height: 1.6;
+        }
+
+        /* ── ORDER / CTA ── */
+        #order {
+            background: var(--cream-dark);
+            text-align: center;
+            padding: 100px 60px;
+        }
+
+        .order-inner {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .wa-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #25D366;
+            color: white;
+            padding: 18px 40px;
+            border-radius: 0px;
+            border: 2px solid var(--green);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-top: 40px;
+            transition: transform 0.1s, box-shadow 0.1s;
+            box-shadow: 6px 6px 0px var(--green);
+        }
+
+        .wa-btn:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 4px 4px 0px var(--green);
+        }
+
+        .wa-icon {
+            font-size: 22px;
+        }
+
+        .order-note {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 20px;
+            font-weight: 300;
+        }
+
+        .order-packages {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .order-pkg {
+            border: 2px solid var(--green);
+            color: var(--green);
+            padding: 12px 24px;
+            border-radius: 0px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.1s, box-shadow 0.1s;
+            background: #ffffff;
+            box-shadow: 2px 2px 0px var(--green);
+        }
+
+        .order-pkg:hover,
+        .order-pkg.selected {
+            background: var(--green);
+            color: var(--cream);
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0px var(--green);
+        }
+
+        .order-form-wrap {
+            text-align: left;
+            max-width: 480px;
+            margin: 32px auto;
+            background: white;
+            padding: 32px;
+            border-radius: 0px;
+            border: 2px solid var(--green);
+            box-shadow: 6px 6px 0px var(--green);
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+
+        .order-form-wrap:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 4px 4px 0px var(--green);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 16px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--green);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            margin-top: 8px;
+            border: 2px solid var(--green);
+            border-radius: 0px;
+            font-family: inherit;
+            color: var(--green);
+            outline: none;
+            background: #ffffff;
+            transition: box-shadow 0.1s;
+        }
+
+        .form-input:focus {
+            background: white;
+            box-shadow: 4px 4px 0px var(--green);
+        }
+
+        .selected-info {
+            margin-top: 20px;
+            padding: 16px 24px;
+            background: var(--green-mist);
+            border: 1px solid var(--green-pale);
+            border-radius: 4px;
+            font-size: 13px;
+            color: var(--text-mid);
+            display: none;
+        }
+
+        .selected-info.visible {
+            display: block;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--text-dark);
+            color: var(--cream);
+            padding: 60px 60px 90px; /* Extra padding for 1-row checkerboard */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 48px;
+        }
+
+        .footer-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+
+        .footer-logo em {
+            font-style: normal;
+            color: var(--green);
+        }
+
+        .footer-desc {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.8;
+            max-width: 320px;
+        }
+
+        .footer-col h5 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--cream);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.2s;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .social-link:hover {
+            background: var(--green);
+            border-color: var(--green);
+            color: white;
+        }
+
+        .social-link.dark {
+            border-color: rgba(45, 80, 22, 0.2);
+            color: var(--green);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: 300;
+        }
+
+        /* ── DIVIDER ── */
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--cream-deeper), transparent);
+            margin: 0 60px;
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeLeft {
+            from {
+                opacity: 0;
+                transform: translate(40px, -50%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(0, -50%);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        /* ── MARQUEE ── */
+        .marquee-wrap {
+            overflow: hidden;
+            background: var(--green);
+            padding: 14px 0;
+            border-top: 2px solid var(--text-dark);
+            border-bottom: 2px solid var(--text-dark);
+        }
+
+        .marquee {
+            display: flex;
+            gap: 0;
+            white-space: nowrap;
+            animation: marquee 20s linear infinite;
+        }
+
+        .marquee-item {
+            flex-shrink: 0;
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--green-pale);
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            -webkit-text-stroke: 1px var(--text-dark);
+        }
+
+        .marquee-item::after {
+            content: '✦';
+            color: var(--accent-gold);
+            font-size: 8px;
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ── VIDEO EMBED ── */
+        .video-embed-section {
+            margin-top: 80px;
+        }
+
+        .video-embed-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .video-embed-header h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--green);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .video-embed-header p {
+            font-size: 14px;
+            color: var(--text-mid);
+        }
+
+        .video-embed-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .video-embed-card {
+            background: var(--cream);
+            border-radius: 0px;
+            overflow: hidden;
+            border: 2px solid var(--green);
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            color: var(--green);
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 4px 4px 0px var(--green);
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+
+        .video-embed-card:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--green);
+        }
+
+        /* ── MOBILE ── */
+        @media (max-width: 768px) {
+            nav {
+                padding: 16px 24px;
+            }
+
+            nav.scrolled {
+                padding: 12px 24px;
+            }
+
+            .nav-logo {
+                font-size: 18px;
+                letter-spacing: 1px;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: #ffffff;
+                border-left: 2px solid var(--green);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: right 0.4s ease;
+                box-shadow: -4px 0px 0px rgba(20, 52, 37, 0.2);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            #hero {
+                padding: 140px 24px 80px;
+            }
+            
+            section {
+                padding: 80px 24px;
+            }
+
+            .hero-content {
+                text-align: center;
+                margin: 0 auto;
+            }
+
+            .hero-logo-img {
+                margin: 0 auto 24px;
+                max-height: 120px;
+            }
+
+            .hero-tag {
+                justify-content: center;
+            }
+            
+            .hero-desc {
+                margin-left: auto;
+                margin-right: auto;
+                font-size: 14px;
+            }
+
+            .hero-btns {
+                justify-content: center;
+            }
+
+            .hero-float {
+                display: none;
+            }
+
+            .portfolio-grid,
+            .video-embed-grid,
+            .cert-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .port-card.large {
+                grid-column: span 1;
+            }
+
+            #about {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 80px 24px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .sk-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #order {
+                padding: 80px 24px;
+            }
+
+            footer {
+                padding: 48px 24px 32px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+
+            .portfolio-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 24px;
+            }
+
+            body {
+                cursor: auto;
+            }
+
+            .cursor,
+            .cursor-ring {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- NAV -->
+    <nav id="navbar">
+        <div class="nav-logo">Harsyid <em>Management</em></div>
+        <div class="hamburger" id="hamburger" onclick="toggleNav()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#about">Tentang</a></li>
+            <li><a href="#portfolio">Portofolio</a></li>
+            <li><a href="#certificates">Sertifikat</a></li>
+            <li><a href="#pricing">Harga</a></li>
+            <li><a href="#order" class="nav-cta">Order Sekarang</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-pattern"></div>
+        <div class="hero-content">
+            <div class="hero-tag">Digital Marketing Specialist</div>
+            <img src="logo.png" alt="Harsyid Management" class="hero-logo-img">
+            <h1 style="display:none;">Harsyid Management</h1>
+            <div class="hero-title">Social Media · Content Creation · Digital Strategy</div>
+            <p class="hero-desc">Bangun brand digitalmu dengan konten yang engaging, strategi yang terencana, dan hasil
+                yang terukur. Spesialis Social Media Management untuk Instagram & TikTok.</p>
+            <div class="hero-btns">
+                <a href="#portfolio" class="btn-primary">Lihat Portofolio →</a>
+                <a href="#pricing" class="btn-outline">Paket Layanan</a>
+            </div>
+        </div>
+        <div class="hero-float">
+            <div class="stat-card">
+                <div class="stat-num">25+</div>
+                <div class="stat-label">Konten Dibuat</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">3</div>
+                <div class="stat-label">Paket Tersedia</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">2x</div>
+                <div class="stat-label">Peningkatan Engagement</div>
+            </div>
+        </div>
+        <div class="hero-scroll">Scroll untuk explore</div>
+        <div class="checkerboard-divider"></div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee-wrap">
+        <div class="marquee">
+            <span class="marquee-item">Content Creation</span>
+            <span class="marquee-item">Reels & TikTok</span>
+            <span class="marquee-item">Instagram Feed Design</span>
+            <span class="marquee-item">Brand Strategy</span>
+            <span class="marquee-item">Hashtag Research</span>
+            <span class="marquee-item">Audience Engagement</span>
+            <span class="marquee-item">Analytics & Reporting</span>
+            <span class="marquee-item">Digital Marketing</span>
+            <span class="marquee-item">Content Creation</span>
+            <span class="marquee-item">Reels & TikTok</span>
+            <span class="marquee-item">Instagram Feed Design</span>
+            <span class="marquee-item">Brand Strategy</span>
+            <span class="marquee-item">Hashtag Research</span>
+            <span class="marquee-item">Audience Engagement</span>
+            <span class="marquee-item">Analytics & Reporting</span>
+            <span class="marquee-item">Digital Marketing</span>
+        </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div>
+            <div class="section-tag">Tentang Saya</div>
+            <h2 class="section-title">Kreativitas bertemu<br><em>strategi digital</em></h2>
+            <p class="section-sub" style="color:rgba(200,217,184,0.85)">Saya adalah digital marketing specialist yang
+                fokus pada pembuatan konten berkualitas tinggi dan pengelolaan social media yang terstruktur. Dengan
+                pendekatan berbasis data dan kreativitas yang kuat, saya membantu brand berkembang di era digital.</p>
+            <div class="about-skills">
+                <div class="skill-bar-item">
+                    <label><span>Desain Konten</span><span>95%</span></label>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" data-width="95"></div>
+                    </div>
+                </div>
+                <div class="skill-bar-item">
+                    <label><span>Video Editing</span><span>85%</span></label>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" data-width="85"></div>
+                    </div>
+                </div>
+                <div class="skill-bar-item">
+                    <label><span>Social Media Strategy</span><span>88%</span></label>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" data-width="88"></div>
+                    </div>
+                </div>
+                <div class="skill-bar-item">
+                    <label><span>Content Writing</span><span>80%</span></label>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" data-width="80"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="about-right">
+            <div class="service-pill">
+                <div class="pill-icon">📱</div>
+                <div class="pill-text">
+                    <h4>Instagram Management</h4>
+                    <p>Feed desain estetik, Story menarik, optimasi bio & highlight untuk pertumbuhan organik.</p>
+                </div>
+            </div>
+            <div class="service-pill">
+                <div class="pill-icon">🎬</div>
+                <div class="pill-text">
+                    <h4>Short-Form Video</h4>
+                    <p>Reels & TikTok dengan hook kuat, trending audio, dan editing profesional.</p>
+                </div>
+            </div>
+            <div class="service-pill">
+                <div class="pill-icon">📊</div>
+                <div class="pill-text">
+                    <h4>Analytics & Reporting</h4>
+                    <p>Laporan performa bulanan dengan insight mendalam dan rekomendasi strategi.</p>
+                </div>
+            </div>
+            <div class="service-pill">
+                <div class="pill-icon">✍️</div>
+                <div class="pill-text">
+                    <h4>Caption & Copywriting</h4>
+                    <p>Caption interaktif, riset hashtag, dan CTA strategis yang mendorong engagement.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+        <div class="portfolio-header">
+            <div>
+                <div class="section-tag reveal">Portofolio Saya</div>
+                <h2 class="section-title reveal reveal-delay-1">Karya <em>terbaik</em><br>yang pernah dibuat</h2>
+            </div>
+            <div class="filter-tabs reveal">
+                <button class="filter-tab active" onclick="filterPort(this, 'all')">Semua</button>
+                <button class="filter-tab" onclick="filterPort(this, 'design')">Desain</button>
+            </div>
+        </div>
+
+        <div class="social-follow-wrapper reveal reveal-delay-2" style="margin-bottom: 40px; margin-top: 0;">
+            <div class="social-follow-title">Yuk follow social media saya untuk update & karya terbaru! 👇</div>
+            <div class="social-cards-grid">
+                <!-- GANTI URL DI BAWAH INI DENGAN LINK INSTAGRAM ANDA -->
+                <a href="https://instagram.com/zanuar_harun" target="_blank" class="social-card-link" title="Instagram">
+                    <div class="social-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </div>
+                    <span class="social-card-name">Instagram</span>
+                    <span class="social-card-action">Follow Me ↗</span>
+                </a>
+                <!-- GANTI URL DI BAWAH INI DENGAN LINK TIKTOK ANDA -->
+                <a href="https://tiktok.com/@zanuar_harun7" target="_blank" class="social-card-link" title="TikTok">
+                    <div class="social-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+                        </svg>
+                    </div>
+                    <span class="social-card-name">TikTok</span>
+                    <span class="social-card-action">Follow Me ↗</span>
+                </a>
+                <!-- GANTI URL DI BAWAH INI DENGAN LINK LINKEDIN ANDA -->
+                <a href="https://linkedin.com/in/zanuar-arrosyid" target="_blank" class="social-card-link"
+                    title="LinkedIn">
+                    <div class="social-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                            </path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </div>
+                    <span class="social-card-name">LinkedIn</span>
+                    <span class="social-card-action">Connect ↗</span>
+                </a>
+                <!-- GANTI URL DI BAWAH INI DENGAN LINK LYNK.ID ANDA -->
+                <a href="https://lynk.id/zanuarharun7" target="_blank" class="social-card-link" title="Lynkid">
+                    <div class="social-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                    </div>
+                    <span class="social-card-name">Lynk.id</span>
+                    <span class="social-card-action">Digital Produk ↗</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="portfolio-grid" id="portGrid">
+
+            <!-- 8 Desain Gambar -->
+            <div class="port-card reveal" data-cat="design">
+                <div class="port-thumb">
+                    <!-- Ganti gambar.jpg dengan nama file gambar yang Anda miliki -->
+                    <img src="1.jpg" alt="Portfolio 1" class="port-thumb-bg"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                    <div class="thumb-pattern"></div>
+                    <div class="port-thumb-overlay">
+                    </div>
+                </div>
+                <div class="port-info">
+                    <h3>Feed Desain Dirgahayu Indonesia</h3>
+                </div>
+            </div>
+
+            <div class="port-card reveal reveal-delay-1" data-cat="design">
+                <div class="port-thumb">
+                    <img src="2.webp" alt="Portfolio 2" class="port-thumb-bg"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                    <div class="thumb-pattern"></div>
+                    <div class="port-thumb-overlay">
+                    </div>
+                </div>
+                <div class="port-info">
+                    <h3>Feed Desain Kajian Masjid</h3>
+                </div>
+            </div>
+
+            <div class="port-card reveal reveal-delay-2" data-cat="design">
+                <div class="port-thumb">
+                    <img src="3.png" alt="Portfolio 3" class="port-thumb-bg"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                    <div class="thumb-pattern"></div>
+                    <div class="port-thumb-overlay">
+                    </div>
+                </div>
+                <div class="port-info">
+                    <h3>Feed Desain Informatif Pajak</h3>
+                </div>
+            </div>
+
+            <div class="port-card reveal reveal-delay-3" data-cat="design">
+                <div class="port-thumb">
+                    <img src="4.png" alt="Portfolio 4" class="port-thumb-bg"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                    <div class="thumb-pattern"></div>
+                    <div class="port-thumb-overlay">
+                    </div>
+                </div>
+                <div class="port-info">
+                    <h3>Feed Desain Padel Hub</h3>
+                </div>
+            </div>
+
+            <div class="port-card reveal" data-cat="design">
+                <div class="port-thumb">
+                    <img src="5.png" alt="Portfolio 5" class="port-thumb-bg"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                    <div class="thumb-pattern"></div>
+                    <div class="port-thumb-overlay">
+                    </div>
+                </div>
+                <div class="port-info">
+                    <h3>Feed Desain Hardiknas</h3>
+                </div>
+            </div>
+
+            <div class="port-card reveal reveal-delay-1" data-cat="design">
+                <div class="port-thumb">
+                    <div class="port-carousel-wrap">
+                        <div class="port-carousel-track" id="track6">
+                            <img src="1 (1).jpeg" alt="Portfolio 6 - Slide 1" class="carousel-img">
+                            <img src="1 (2).jpeg" alt="Portfolio 6 - Slide 2" class="carousel-img">
+                            <img src="1 (3).jpeg" alt="Portfolio 6 - Slide 3" class="carousel-img">
+                            <img src="1 (4).jpeg" alt="Portfolio 6 - Slide 4" class="carousel-img">
+                        </div>
+                        <button class="carousel-btn prev" onclick="moveCarousel(-1, event)">❮</button>
+                        <button class="carousel-btn next" onclick="moveCarousel(1, event)">❯</button>
+                        <div class="carousel-dots">
+                            <span class="carousel-dot active" onclick="jumpCarousel(0, event)"></span>
+                            <span class="carousel-dot" onclick="jumpCarousel(1, event)"></span>
+                            <span class="carousel-dot" onclick="jumpCarousel(2, event)"></span>
+                            <span class="carousel-dot" onclick="jumpCarousel(3, event)"></span>
+                        </div>
+                    </div>
+                    <div class="thumb-pattern" style="pointer-events: none;"></div>
+                    <div class="port-thumb-overlay" style="pointer-events: none;">
+                    </div>
+                </div>
+                <div class="port-info">
+                    <h3>Feed Desain Gamis Canva x Ai</h3>
+                </div>
+            </div>
+
+            <div class="port-card reveal reveal-delay-2" data-cat="design">
+                <div class="port-thumb">
+                    <img src="7.png" alt="Portfolio 7" class="port-thumb-bg"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                    <div class="thumb-pattern"></div>
+                    <div class="port-thumb-overlay">
+                    </div>
+                </div>
+                <div class="port-info">
+                    <h3>Feed Desain Time Reminder</h3>
+                </div>
+            </div>
+
+            <div class="port-card reveal reveal-delay-3" data-cat="design">
+                <div class="port-thumb">
+                    <img src="8.png" alt="Portfolio 8" class="port-thumb-bg"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                    <div class="thumb-pattern"></div>
+                    <div class="port-thumb-overlay">
+                    </div>
+                </div>
+                <div class="port-info">
+                    <h3>Feed Desain F&B</h3>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- VIDEO EMBED SECTION -->
+        <div class="video-embed-section reveal">
+            <div class="video-embed-header">
+                <h3>Video Konten Pilihan</h3>
+                <p>Karya video terbaik di Instagram dan TikTok</p>
+            </div>
+            <div class="video-embed-grid">
+                <!-- Tempatkan embed code video 1 di bawah ini -->
+                <div class="video-embed-card">
+                    <p>
+                    <blockquote class="tiktok-embed"
+                        cite="https://www.tiktok.com/@samahitax.id/video/7631549079524330773"
+                        data-video-id="7631549079524330773" style="max-width: 605px;min-width: 325px;">
+                        <section> <a target="_blank" title="@samahitax.id"
+                                href="https://www.tiktok.com/@samahitax.id?refer=embed">@samahitax.id</a> OWNER WAJIB
+                            TAU INI‼️ <a title="konsultanpajak" target="_blank"
+                                href="https://www.tiktok.com/tag/konsultanpajak?refer=embed">#konsultanpajak</a> <a
+                                title="coretax" target="_blank"
+                                href="https://www.tiktok.com/tag/coretax?refer=embed">#coretax</a> <a title="surakarta"
+                                target="_blank" href="https://www.tiktok.com/tag/surakarta?refer=embed">#surakarta</a>
+                            <a target="_blank" title="♬ suara asli  - Samahitax.id"
+                                href="https://www.tiktok.com/music/suara-asli-Samahitaxid-7631549135149812481?refer=embed">♬
+                                suara asli - Samahitax.id</a>
+                        </section>
+                    </blockquote>
+                    <script async src="https://www.tiktok.com/embed.js"></script>
+                    </p>
+                </div>
+                <!-- Tempatkan embed code video 2 di bawah ini -->
+                <div class="video-embed-card">
+                    <p>
+                    <blockquote class="tiktok-embed"
+                        cite="https://www.tiktok.com/@faminis_klewer/video/7602639119214333205"
+                        data-video-id="7602639119214333205" style="max-width: 605px;min-width: 325px;">
+                        <section> <a target="_blank" title="@faminis_klewer"
+                                href="https://www.tiktok.com/@faminis_klewer?refer=embed">@faminis_klewer</a> Daster
+                            Gamis Kaftan🧕🏻💚 <a title="gamis" target="_blank"
+                                href="https://www.tiktok.com/tag/gamis?refer=embed">#gamis</a> <a title="daster"
+                                target="_blank" href="https://www.tiktok.com/tag/daster?refer=embed">#daster</a> <a
+                                target="_blank" title="♬ Lazy River - Hyperstring"
+                                href="https://www.tiktok.com/music/Lazy-River-7600969196156536851?refer=embed">♬ Lazy
+                                River - Hyperstring</a> </section>
+                    </blockquote>
+                    <script async src="https://www.tiktok.com/embed.js"></script>
+                    </p>
+                </div>
+                <!-- Tempatkan embed code video 3 di bawah ini -->
+                <div class="video-embed-card">
+                    <p>
+                    <blockquote class="tiktok-embed"
+                        cite="https://www.tiktok.com/@assalaam_tegalgede/video/7612971161516870932"
+                        data-video-id="7612971161516870932" style="max-width: 605px;min-width: 325px;">
+                        <section> <a target="_blank" title="@assalaam_tegalgede"
+                                href="https://www.tiktok.com/@assalaam_tegalgede?refer=embed">@assalaam_tegalgede</a>
+                            Masjid full fasilitas😎🤫 <a title="lebaran" target="_blank"
+                                href="https://www.tiktok.com/tag/lebaran?refer=embed">#lebaran</a> <a title="ramadhan"
+                                target="_blank" href="https://www.tiktok.com/tag/ramadhan?refer=embed">#ramadhan</a> <a
+                                title="masjid" target="_blank"
+                                href="https://www.tiktok.com/tag/masjid?refer=embed">#masjid</a> <a title="genz"
+                                target="_blank" href="https://www.tiktok.com/tag/genz?refer=embed">#genz</a> <a
+                                target="_blank" title="♬ suara asli  - assalaam_tegalgede"
+                                href="https://www.tiktok.com/music/suara-asli-assalaamtegalgede-7612971223476734737?refer=embed">♬
+                                suara asli - assalaam_tegalgede</a> </section>
+                    </blockquote>
+                    <script async src="https://www.tiktok.com/embed.js"></script>
+                    </p>
+                </div>
+                <!-- Tempatkan embed code video 4 di bawah ini -->
+                <div class="video-embed-card">
+                    <p>
+                    <blockquote class="tiktok-embed"
+                        cite="https://www.tiktok.com/@samahitax.id/video/7633740246705868053"
+                        data-video-id="7633740246705868053" style="max-width: 605px;min-width: 325px;">
+                        <section> <a target="_blank" title="@samahitax.id"
+                                href="https://www.tiktok.com/@samahitax.id?refer=embed">@samahitax.id</a> no no ya
+                            adekkk maapin kalo ekspresi mimin miring dikit wkwkwk <a title="fyppppppppppppppppppppppp"
+                                target="_blank"
+                                href="https://www.tiktok.com/tag/fyppppppppppppppppppppppp?refer=embed">#fyppppppppppppppppppppppp</a>
+                            <a title="coretax" target="_blank"
+                                href="https://www.tiktok.com/tag/coretax?refer=embed">#coretax</a> <a target="_blank"
+                                title="♬ original sound  - Samahitax.id"
+                                href="https://www.tiktok.com/music/original-sound-Samahitaxid-7633740290989886226?refer=embed">♬
+                                original sound - Samahitax.id</a>
+                        </section>
+                    </blockquote>
+                    <script async src="https://www.tiktok.com/embed.js"></script>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CERTIFICATES -->
+    <section id="certificates">
+        <div class="section-tag reveal">Pencapaian</div>
+        <h2 class="section-title reveal reveal-delay-1">Sertifikat &<br><em>Penghargaan</em></h2>
+        <p class="section-sub reveal reveal-delay-2">Rekam jejak prestasi dalam kompetisi dan pelatihan di bidang
+            digital marketing, desain, dan Ai.</p>
+
+        <div class="cert-grid">
+            <div class="cert-card reveal">
+                <!-- Ganti sertifikat1.jpg dengan nama file gambar sertifikat Anda -->
+                <img src="s1 .jpg" alt="Sertifikat 1"
+                    style="width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block;">
+            </div>
+
+            <div class="cert-card reveal reveal-delay-1">
+                <!-- Ganti sertifikat2.jpg dengan nama file gambar sertifikat Anda -->
+                <img src="s2.jpg" alt="Sertifikat 2"
+                    style="width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block;">
+            </div>
+
+            <div class="cert-card reveal reveal-delay-2">
+                <!-- Ganti sertifikat3.jpg dengan nama file gambar sertifikat Anda -->
+                <img src="s3.jpg" alt="Sertifikat 3"
+                    style="width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block;">
+            </div>
+
+            <div class="cert-card reveal">
+                <!-- Ganti sertifikat4.jpg dengan nama file gambar sertifikat Anda -->
+                <img src="s4.jpg" alt="Sertifikat 4"
+                    style="width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block;">
+            </div>
+
+            <div class="cert-card reveal reveal-delay-1">
+                <!-- Ganti sertifikat5.jpg dengan nama file gambar sertifikat Anda -->
+                <img src="s5.jpg" alt="Sertifikat 5"
+                    style="width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block;">
+            </div>
+
+            <div class="cert-card reveal reveal-delay-2">
+                <!-- Ganti sertifikat6.jpg dengan nama file gambar sertifikat Anda -->
+                <img src="s6.jpg" alt="Sertifikat 6"
+                    style="width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block;">
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing">
+        <div class="pricing-header">
+            <div class="section-tag">Paket Layanan</div>
+            <h2 class="section-title">Pilih paket <em>yang tepat</em><br>untuk brandmu</h2>
+            <p class="section-sub" style="margin-top:16px">Semua paket sudah termasuk pengelolaan konten profesional
+                untuk Instagram dan TikTok. Tanpa biaya iklan tambahan.</p>
+
+        </div>
+
+        <div class="reveal" style="max-width: 1200px; margin: 0 auto 40px; padding: 24px 32px; background: rgba(255, 77, 77, 0.05); border: 1px solid rgba(255, 77, 77, 0.2); border-left: 4px solid #ff4d4d; border-radius: 8px; text-align: left;">
+            <p style="color: var(--cream); font-size: 16px; line-height: 1.6; margin: 0;">
+                <strong style="color: #ff4d4d; font-size: 18px; display: block; margin-bottom: 8px;">✨ INFO PENTING ✨</strong>
+                Layanan pengambilan video (take konten) secara langsung saat ini khusus melayani area <strong style="color: #ff4d4d;">Solo Raya</strong>. Untuk Anda yang berada di luar area tersebut, jangan khawatir! Kami menyediakan opsi alternatif yang tak kalah menarik, yaitu pembuatan <strong>konten video berbasis AI</strong> yang profesional, atau dapat dialihkan menjadi penambahan kuota <strong>Desain Feed</strong> yang estetik.
+            </p>
+        </div>
+
+        <div class="pricing-grid reveal">
+            <!-- ESENSIAL -->
+            <div class="price-card">
+                <div class="price-header">
+                    <div class="price-tier">1. Paket Esensial</div>
+                    <div class="price-name">Paket Esensial</div>
+                    <div class="price-desc">Fokus: Konsistensi & Aktivasi Akun</div>
+                </div>
+                <div class="price-amount-wrap">
+                    <div
+                        style="font-family: 'DM Sans', sans-serif; font-size: 14px; text-decoration: line-through; color: rgba(255, 255, 255, 0.5); margin-bottom: 6px;">
+                        Rp 1.000.000</div>
+                    <div class="price-amount" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                        Rp 900.000
+                        <span
+                            style="font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 600; background: var(--accent-gold); color: white; padding: 4px 8px; border-radius: 3px; letter-spacing: 1px; text-transform: uppercase;">Diskon
+                            10%</span>
+                    </div>
+                    <div class="price-period" style="margin-top: 8px;">/ Bulan</div>
+                </div>
+                <ul class="price-features">
+                    <li><strong>Optimasi Akun:</strong> Setup foto profil, perapihan copywriting Bio Instagram (riset
+                        kata kunci), dan pembuatan Highlight/Sorotan standar.</li>
+                    <li><strong>6 Desain Feed:</strong> Visual rapi, terjadwal 1-2x posting per minggu.</li>
+                    <li><strong>2 Video (Reels/TikTok):</strong> Diproduksi dengan sistem 1x kedatangan (Batch Shoot).
+                        Fokus pada kejelasan produk/jasa.</li>
+                    <li><strong>Admin Media Sosial:</strong> Membalas DM dan komentar masuk maksimal 2x sehari pada jam
+                        kerja resmi.</li>
+                    <li><strong>Laporan Bulanan:</strong> Berupa screenshot insight performa akun di akhir periode.</li>
+                    <li style="margin-top: 10px; font-weight: bold; color: #ff4d4d;">Ketentuan Produksi & Revisi:
+                    </li>
+                    <li><strong>Tanpa Content Planner:</strong> Ide, konsep, dan jadwal penayangan ditentukan sepenuhnya
+                        oleh tim kreator untuk efisiensi waktu.</li>
+                    <li><strong>Revisi Desain Feed:</strong> Maksimal 1x Revisi Minor per desain.</li>
+                    <li><strong>Revisi Konten Video:</strong> Maksimal 1x Revisi Minor pada proses editing. <strong
+                            style="color: #ff4d4d;">Tidak melayani syuting ulang (re-take).</strong></li>
+                </ul>
+                <div class="price-cta-wrap">
+                    <a href="#order" class="price-btn"
+                        onclick="selectPackage('Paket Esensial – Rp 900.000/bulan')">Pilih Paket Ini</a>
+                </div>
+            </div>
+
+            <!-- BERTUMBUH -->
+            <div class="price-card featured">
+                <div class="featured-badge">Rekomendasi</div>
+                <div class="price-header">
+                    <div class="price-tier">2. Paket Bertumbuh</div>
+                    <div class="price-name">Paket Bertumbuh</div>
+                    <div class="price-desc">Fokus: Interaksi & Pertumbuhan Organik</div>
+                </div>
+                <div class="price-amount-wrap">
+                    <div class="price-amount">Rp 1.800.000</div>
+                    <div class="price-period">/ Bulan</div>
+                </div>
+                <ul class="price-features">
+                    <li><strong>Optimasi Akun:</strong> Setup Bio Instagram, pembuatan cover Highlight kustom, dan
+                        pembuatan Link terintegrasi menuju WhatsApp/Marketplace.</li>
+                    <li><strong>10 Desain Feed:</strong> Variasi konten single post dan format Carousel (edukasi/katalog
+                        produk).</li>
+                    <li><strong>4 Video (Reels/TikTok):</strong> Diproduksi dengan sistem 1x kedatangan (Batch Shoot
+                        untuk mengambil seluruh footage satu bulan sekaligus).</li>
+                    <li><strong>Admin & IG Story:</strong> Membalas DM/Komentar secara rutin + Pembuatan & Upload 1 IG
+                        Story interaktif per hari.</li>
+                    <li><strong>Laporan Bulanan:</strong> Menggunakan spreadsheet evaluasi pertumbuhan audiens dan
+                        tingkat interaksi (engagement rate).</li>
+                    <li style="margin-top: 10px; font-weight: bold; color: #d93025;">Ketentuan Produksi & Revisi:
+                    </li>
+                    <li><strong>Content Planner:</strong> Diberikan dalam bentuk draf tulisan H-5 sebelum bulan berjalan
+                        untuk peninjauan dan persetujuan (ACC) klien.</li>
+                    <li><strong>Revisi Desain Feed:</strong> Maksimal 2x Revisi Minor atau 1x Revisi Mayor sebelum
+                        jadwal tayang.</li>
+                    <li><strong>Revisi Konten Video:</strong> Maksimal 2x Revisi pada proses editing. <strong
+                            style="color: #d93025;">Tidak melayani pengambilan video ulang (re-take).</strong></li>
+                </ul>
+                <div class="price-cta-wrap">
+                    <a href="#order" class="price-btn"
+                        onclick="selectPackage('Paket Bertumbuh – Rp 1.800.000/bulan')">Pilih Paket Ini</a>
+                </div>
+            </div>
+
+            <!-- EKSEKUTIF -->
+            <div class="price-card">
+                <div class="price-header">
+                    <div class="price-tier">3. Paket Eksekutif</div>
+                    <div class="price-name">Paket Eksekutif</div>
+                    <div class="price-desc">Fokus: Strategi Komprehensif & Branding Premium</div>
+                </div>
+                <div class="price-amount-wrap">
+                    <div class="price-amount">Rp 3.500.000</div>
+                    <div class="price-period">/ Bulan</div>
+                </div>
+                <ul class="price-features">
+                    <li><strong>Optimasi Akun Premium:</strong> Penyelarasan palet warna identitas brand pada grid,
+                        perapihan Bio komprehensif, dan Link khusus dengan desain eksklusif.</li>
+                    <li><strong>15 Desain Feed:</strong> Visual premium dengan riset visual mendalam dan copywriting
+                        yang tajam berorientasi konversi.</li>
+                    <li><strong>6 Video (Reels/TikTok):</strong> Proses editing tingkat lanjut. Diproduksi melalui
+                        sistem 2x sesi kedatangan (Batch Shoot).</li>
+                    <li><strong>Manajemen Influencer Lokal:</strong> Jasa riset, negosiasi, pembuatan brief, hingga
+                        pengaturan jadwal review dengan 1-2 KOL lokal (Biaya rate card influencer tetap ditanggung penuh
+                        oleh klien).</li>
+                    <li><strong>Admin Proaktif:</strong> Manajemen interaksi penuh di jam kerja, termasuk melakukan
+                        interaksi keluar ke target pasar potensial.</li>
+                    <li><strong>Laporan Komprehensif:</strong> Evaluasi performa konten, analisis dampak strategi, serta
+                        rekomendasi taktis bulan berikutnya.</li>
+                    <li style="margin-top: 10px; font-weight: bold; color: #ff4d4d;">Ketentuan Produksi & Revisi:
+                    </li>
+                    <li><strong>Content Planner & Strategi Campaign:</strong> Penyusunan kalender konten terintegrasi
+                        dengan tema besar bulanan beserta riset hashtag lokal.</li>
+                    <li><strong>Revisi Desain Feed:</strong> Bebas Revisi Minor & maksimal 2x Revisi Mayor per konten.
+                    </li>
+                    <li><strong>Revisi Konten Video:</strong> Maksimal 3x Revisi pada tahap editing. <strong
+                            style="color: #ff4d4d;">Jika meminta syuting ulang (re-take) akibat perubahan konsep
+                            mendadak dari klien, akan dikenakan biaya operasional tambahan di luar paket.</strong></li>
+                </ul>
+                <div class="price-cta-wrap">
+                    <a href="#order" class="price-btn"
+                        onclick="selectPackage('Paket Eksekutif – Rp 3.500.000/bulan')">Pilih Paket Ini</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- S&K -->
+        <div class="sk-grid" style="margin-top:64px">
+            <div style="grid-column: 1 / -1; margin-bottom: 8px;">
+                <h3 class="section-title" style="font-size: 24px; margin-bottom: 8px;">Aturan Main & <em>Definisi
+                        Operasional</em></h3>
+                <p class="section-sub">Untuk menjaga kelancaran kerja sama dan transparansi, berikut adalah batasan
+                    kerja baku yang berlaku untuk seluruh paket penawaran di atas:</p>
+            </div>
+            <div class="sk-item reveal">
+                <div class="sk-icon">📝</div>
+                <div>
+                    <h4>Revisi Minor</h4>
+                    <p>Perubahan kecil yang tidak mengubah struktur dasar konten. Contoh: Mengganti jenis huruf (font),
+                        merubah warna background, membetulkan kesalahan ketik (typo), menggeser posisi logo, atau
+                        mengganti musik latar video.</p>
+                </div>
+            </div>
+            <div class="sk-item reveal reveal-delay-1">
+                <div class="sk-icon">🔄</div>
+                <div>
+                    <h4>Revisi Mayor</h4>
+                    <p>Perubahan besar yang merombak struktur yang sudah dibuat. Contoh: Mengganti total tata letak
+                        (layout) desain, mengganti materi foto produk utama dengan file baru karena klien berubah
+                        pikiran, atau merubah total isi teks/topik pembahasan.</p>
+                </div>
+            </div>
+            <div class="sk-item reveal reveal-delay-2">
+                <div class="sk-icon">📸</div>
+                <div>
+                    <h4>Sistem Batch Shoot</h4>
+                    <p>Metode produksi video efisien di mana tim hanya akan datang ke lokasi bisnis klien sebanyak 1
+                        kali (Paket 1 & 2) atau 2 kali (Paket 3) dalam sebulan untuk mengambil seluruh stok rekaman
+                        (footage) sekaligus. Klien wajib mempersiapkan produk atau materi yang akan direkam sebelum tim
+                        tiba di lokasi.</p>
+                </div>
+            </div>
+            <div class="sk-item reveal reveal-delay-3">
+                <div class="sk-icon">🎬</div>
+                <div>
+                    <h4>Kebijakan Re-take</h4>
+                    <p>Pengambilan ulang video di lapangan tidak dapat dilayani apabila hasil rekaman sudah sesuai
+                        dengan kesepakatan awal (brief). Re-take tanpa biaya tambahan hanya dilakukan jika terjadi
+                        kesalahan teknis murni dari pihak tim produksi (misal: gambar blur atau file rusak).</p>
+                </div>
+            </div>
+            <div class="sk-item reveal" style="grid-column: 1 / -1; max-width: 100%;">
+                <div class="sk-icon">🗂️</div>
+                <div>
+                    <h4>Kepemilikan Aset</h4>
+                    <p>Harga paket hanya mencakup hak guna file akhir (.MP4 untuk video, .PNG/.JPG untuk feed) yang
+                        diunggah ke media sosial. File mentah proyek (proyek Canva, file editing Premiere/CapCut, atau
+                        raw footage video) tetap menjadi milik kreator, kecuali ada kesepakatan pembelian aset terpisah.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ORDER -->
+    <section id="order">
+        <div class="order-inner">
+            <div class="section-tag reveal" style="justify-content:center">Order Sekarang</div>
+            <h2 class="section-title reveal reveal-delay-1" style="margin:0 auto 16px;text-align:center">Siap
+                tingkatkan<br><em>brand digitalmu?</em></h2>
+            <p class="section-sub reveal reveal-delay-2" style="margin:0 auto;text-align:center">Pilih paket yang
+                sesuai, lalu hubungi kami langsung via WhatsApp. Respons cepat, diskusi ramah, hasil profesional.</p>
+
+            <div class="order-packages reveal reveal-delay-3">
+                <button class="order-pkg" onclick="selectPackage('Paket Esensial – Rp 900.000/bulan')">Paket
+                    Esensial</button>
+                <button class="order-pkg" onclick="selectPackage('Paket Bertumbuh – Rp 1.800.000/bulan')">Paket
+                    Bertumbuh</button>
+                <button class="order-pkg" onclick="selectPackage('Paket Eksekutif – Rp 3.500.000/bulan')">Paket
+                    Eksekutif</button>
+            </div>
+
+            <div class="selected-info" id="selectedInfo">
+                Paket dipilih: <strong id="selectedPkg">—</strong>
+            </div>
+
+            <div class="order-form-wrap reveal">
+                <label class="form-label">
+                    Jenis:
+                    <select id="orderJenis" class="form-input">
+                        <option value="Perorangan">Perorangan</option>
+                        <option value="Bisnis (Usaha)">Bisnis (Usaha)</option>
+                    </select>
+                </label>
+                <label class="form-label">
+                    Nama:
+                    <input type="text" id="orderNama" class="form-input" placeholder="Nama Anda / Usaha">
+                </label>
+                <label class="form-label">
+                    Alamat:
+                    <input type="text" id="orderAlamat" class="form-input" placeholder="Kota / Alamat">
+                </label>
+                <label class="form-label">
+                    Tujuan:
+                    <textarea id="orderTujuan" class="form-input" style="resize: vertical; min-height: 80px;"
+                        placeholder="Tujuan pembuatan konten..."></textarea>
+                </label>
+            </div>
+
+            <a href="#" class="wa-btn reveal" id="waBtn" onclick="openWhatsApp(event)">
+                <span class="wa-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                    </svg>
+                </span>
+                Hubungi via WhatsApp
+            </a>
+            <p class="order-note reveal">Klik tombol di atas untuk langsung chat. Biasanya direspons dalam &lt; 1 jam.
+            </p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-logo">Harsyid <em>Management</em></div>
+                <p class="footer-desc">Digital Marketing Specialist – Social Media Management profesional untuk
+                    Instagram & TikTok. Konten berkualitas, strategi terukur, hasil nyata.</p>
+                <div class="social-links">
+                    <a href="https://instagram.com/username_anda" target="_blank" class="social-link" title="Instagram">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="https://tiktok.com/@username_anda" target="_blank" class="social-link" title="TikTok">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+                        </svg>
+                    </a>
+                    <a href="https://linkedin.com/in/username_anda" target="_blank" class="social-link"
+                        title="LinkedIn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                            </path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </a>
+                    <a href="https://lynkid.id/username_anda" target="_blank" class="social-link" title="Lynkid">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h5>Navigasi</h5>
+                <ul class="footer-links">
+                    <li><a href="#hero">Beranda</a></li>
+                    <li><a href="#about">Tentang</a></li>
+                    <li><a href="#portfolio">Portofolio</a></li>
+                    <li><a href="#certificates">Sertifikat</a></li>
+                    <li><a href="#pricing">Harga</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Layanan</h5>
+                <ul class="footer-links">
+                    <li><a href="#pricing">Paket Starter</a></li>
+                    <li><a href="#pricing">Paket Pro</a></li>
+                    <li><a href="#pricing">Paket Executive</a></li>
+                    <li><a href="#order">Order Sekarang</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Harsyid Management. All rights reserved.</p>
+            <p>Social Media Management · Instagram · TikTok · Digital Marketing</p>
+        </div>
+        <div class="checkerboard-divider"></div>
+    </footer>
+
+    <script>
+        // Cursor
+        const cursor = document.getElementById('cursor');
+        const ring = document.getElementById('cursorRing');
+        let mx = 0, my = 0, rx = 0, ry = 0;
+        document.addEventListener('mousemove', e => {
+            mx = e.clientX; my = e.clientY;
+            cursor.style.transform = `translate(${mx - 6}px, ${my - 6}px)`;
+        });
+        (function animRing() {
+            rx += (mx - rx) * 0.12;
+            ry += (my - ry) * 0.12;
+            ring.style.transform = `translate(${rx - 18}px, ${ry - 18}px)`;
+            requestAnimationFrame(animRing);
+        })();
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => { cursor.style.transform += ' scale(2)'; });
+            el.addEventListener('mouseleave', () => { cursor.style.transform = cursor.style.transform.replace(' scale(2)', ''); });
+        });
+
+        // Hamburger Menu
+        function toggleNav() {
+            document.getElementById('navLinks').classList.toggle('active');
+            document.getElementById('hamburger').classList.toggle('active');
+        }
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                const navLinks = document.getElementById('navLinks');
+                const hamburger = document.getElementById('hamburger');
+                if (navLinks && hamburger) {
+                    navLinks.classList.remove('active');
+                    hamburger.classList.remove('active');
+                }
+            });
+        });
+
+        // Nav scroll
+        const nav = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 60);
+        });
+
+        // Reveal on scroll
+        const reveals = document.querySelectorAll('.reveal');
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+        }, { threshold: 0.12 });
+        reveals.forEach(r => obs.observe(r));
+
+        // Skill bars
+        const barObs = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.querySelectorAll('.skill-bar-fill').forEach(b => {
+                        b.style.width = b.dataset.width + '%';
+                    });
+                    barObs.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.3 });
+        const aboutSec = document.getElementById('about');
+        if (aboutSec) barObs.observe(aboutSec);
+
+        // Portfolio filter
+        function filterPort(btn, cat) {
+            document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.port-card').forEach(c => {
+                c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
+            });
+        }
+
+        // Package selection
+        let selectedPackage = '';
+        function selectPackage(pkg) {
+            selectedPackage = pkg;
+            document.getElementById('selectedPkg').textContent = pkg;
+            document.getElementById('selectedInfo').classList.add('visible');
+            document.querySelectorAll('.order-pkg').forEach(b => {
+                b.classList.toggle('selected', b.textContent.toLowerCase().includes(pkg.split('–')[0].trim().toLowerCase()));
+            });
+            document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // WhatsApp
+        function openWhatsApp(e) {
+            e.preventDefault();
+            const pkg = selectedPackage || 'Konsultasi';
+            const jenis = document.getElementById('orderJenis') ? document.getElementById('orderJenis').value : '-';
+            const nama = document.getElementById('orderNama') ? document.getElementById('orderNama').value.trim() : '-';
+            const alamat = document.getElementById('orderAlamat') ? document.getElementById('orderAlamat').value.trim() : '-';
+            const tujuan = document.getElementById('orderTujuan') ? document.getElementById('orderTujuan').value.trim() : '-';
+
+            const msg = encodeURIComponent(
+                `Halo Harsyid Management! 👋\n\nSaya tertarik dengan layanan Social Media Management.\n\n*Paket:* ${pkg}\n*Jenis:* ${jenis}\n*Nama:* ${nama || '-'}\n*Alamat:* ${alamat || '-'}\n*Tujuan:* ${tujuan || '-'}\n\nBisa minta info lebih lanjut? 🙏`
+            );
+            // Ganti dengan nomor WhatsApp kamu
+            window.open(`https://wa.me/6285163205421?text=${msg}`, '_blank');
+        }
+
+        // Carousel logic for Portfolio 6
+        let currentSlide = 0;
+        const totalSlides = 4;
+        let autoSlideInterval;
+
+        function updateCarousel() {
+            const track = document.getElementById('track6');
+            const dots = document.querySelectorAll('.carousel-dot');
+            if (track) {
+                track.style.transform = `translateX(-${currentSlide * 100}%)`;
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentSlide);
+                });
+            }
+        }
+
+        function moveCarousel(direction, event) {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            updateCarousel();
+            resetAutoSlide();
+        }
+
+        function jumpCarousel(index, event) {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            currentSlide = index;
+            updateCarousel();
+            resetAutoSlide();
+        }
+
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(() => {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateCarousel();
+            }, 3000); // 3 seconds interval
+        }
+
+        function resetAutoSlide() {
+            clearInterval(autoSlideInterval);
+            startAutoSlide();
+        }
+
+        // Initialize auto slide
+        if (document.getElementById('track6')) {
+            startAutoSlide();
+        }
+    </script>
+    <audio id="welcomeAudio" src="voice pembuka.wav" preload="auto"></audio>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const audio = document.getElementById("welcomeAudio");
+
+            // Attempt to play immediately
+            const playPromise = audio.play();
+
+            if (playPromise !== undefined) {
+                playPromise.catch(function (error) {
+                    // Autoplay was prevented by browser policy
+                    // Add listeners to play on first valid user interaction (not scroll)
+                    const playOnInteract = function () {
+                        const attempt = audio.play();
+                        if (attempt !== undefined) {
+                            attempt.then(() => {
+                                // Success! Remove listeners
+                                ['click', 'touchstart'].forEach(event => {
+                                    document.removeEventListener(event, playOnInteract);
+                                });
+                            }).catch(err => {
+                                // Still blocked, listeners remain active
+                            });
+                        }
+                    };
+
+                    ['click', 'touchstart'].forEach(event => {
+                        document.addEventListener(event, playOnInteract);
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
